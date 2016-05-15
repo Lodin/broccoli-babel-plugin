@@ -1,10 +1,10 @@
-import {writeFile} from 'fs';
-import {transformFile} from 'babel-core';
-import {dirname} from 'path';
-import {isArray} from 'lodash';
-import Plugin from 'broccoli-plugin';
-import walkSync from 'walk-sync';
-import mkdirp from 'mkdirp';
+import {writeFileSync, existsSync} from "fs";
+import {transformFileSync} from "babel-core";
+import {dirname} from "path";
+import {isArray} from "lodash";
+import {sync as createDirSync} from "mkdirp";
+import Plugin from "broccoli-plugin";
+import walkSync from "walk-sync";
 
 export default class Babel extends Plugin {
     constructor(inputNodes, options = {}) {
@@ -23,20 +23,12 @@ export default class Babel extends Plugin {
                 continue;
             }
 
-            transformFile(`${srcDir}/${filename}`, this.options, (transpileErr, output) => {
-                if (transpileErr) {
-                    throw transpileErr;
-                }
+            const output = transformFileSync(`${srcDir}/${filename}`, this.options);
+            const outputFilename = `${this.outputPath}/${filename}`;
 
-                const outputFilename = `${this.outputPath}/${filename}`;
+            createDirSync(dirname(outputFilename));
 
-                mkdirp(dirname(outputFilename));
-                writeFile(outputFilename, output, (writeErr) => {
-                    if (writeErr) {
-                        throw writeErr;
-                    }
-                });
-            });
+            writeFileSync(outputFilename, output.code);
         }
     }
 }
