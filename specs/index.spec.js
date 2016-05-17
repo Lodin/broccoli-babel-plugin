@@ -5,7 +5,7 @@ import {Builder} from 'broccoli';
 import Babel from '../src';
 
 describe('Babel broccoli plugin', () => {
-  it('should compile es6 files to es5', () => {
+  it('should transpile es6 files to es5', () => {
     const nodes = new Babel(join(__dirname, 'fixtures'), {presets: 'es2015'});
 
     return (new Builder(nodes)).build().then(() => {
@@ -14,5 +14,22 @@ describe('Babel broccoli plugin', () => {
 
       expect(fixture).to.equal(expectation);
     });
+  });
+
+  it('should not transpile file with extensions differs from `.js`', () => {
+    const nodes = new Babel(join(__dirname, 'fixtures'), {presets: 'es2015'});
+
+    return (new Builder(nodes)).build().then(() => {
+      expect(() => {
+        readFileSync(join(nodes.outputPath, 'basic-not-compile.html'), 'utf8')
+      }).to.throw(Error);
+    });
+  });
+
+  it('should take single node or multiple nodes', () => {
+    expect(() => {
+      new Babel([join(__dirname, 'fixtures'), join(__dirname, 'expects')]);
+      new Babel(join(__dirname, 'fixtures'));
+    }).to.not.throw(TypeError);
   });
 });
