@@ -1,6 +1,6 @@
 {
   "name": "broccoli-babel-plugin",
-  "version": "0.1.0-alpha.0",
+  "version": "0.1.0",
   "description": "Babel plugin for broccoli",
   "main": "dist/index.js",
   "scripts": {
