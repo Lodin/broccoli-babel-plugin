@@ -23,9 +23,6 @@
     "url": "https://github.com/Lodin/broccoli-babel-plugin/issues"
   },
   "homepage": "https://github.com/Lodin/broccoli-babel-plugin#readme",
-  "peerDependencies": {
-    "babel-runtime": "^6.6.1"
-  },
   "dependencies": {
     "babel-core": "^6.8.0",
     "broccoli-plugin": "^1.2.1",
