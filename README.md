@@ -4,6 +4,8 @@
 [![License](https://img.shields.io/npm/l/broccoli-babel-plugin.svg)](./LICENSE)
 [![Build Status](https://img.shields.io/travis/Lodin/broccoli-babel-plugin/master.svg)](https://travis-ci.org/Lodin/broccoli-babel-plugin)
 
+[![Test Coverage](https://img.shields.io/codecov/c/github/Lodin/broccoli-babel-plugin/master.svg)](https://codecov.io/gh/Lodin/broccoli-babel-plugin)
+
 A [Broccoli](https://github.com/broccolijs/broccoli) plugin which 
 transpiles ES6 to ES5 using [babel](https://github.com/babel/babel) 
 of version 6.
