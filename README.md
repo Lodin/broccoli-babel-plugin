@@ -1,5 +1,8 @@
 # broccoli-babel-plugin
 
+[![Latest Stable Version](https://img.shields.io/npm/v/broccoli-babel-plugin.svg)](https://www.npmjs.com/package/broccoli-babel-plugin)
+[![License](https://img.shields.io/npm/l/broccoli-babel-plugin.svg)](./LICENSE)
+
 A [Broccoli](https://github.com/broccolijs/broccoli) plugin which 
 transpiles ES6 to ES5 using [babel](https://github.com/babel/babel) 
 of version 6.
