@@ -11,11 +11,3 @@ before_install: npm -g install npm@latest
 script: npm test -- --timeout 15000
 after_success:
 - cat coverage/lcov.info | ./node_modules/.bin/codecov
-deploy:
-  provider: npm
-  email: rindevich.vs@gmail.com
-  api_key: $NPM_AUTH_TOKEN
-  on:
-    tags: true
-    repo: Lodin/broccoli-babel-plugin
-    condition: $(node -v | egrep v5.6 | wc -l) = 1
