@@ -1,14 +1,14 @@
 import {writeFileSync} from 'fs';
 import {transformFileSync} from 'babel-core';
 import {dirname} from 'path';
-import isArray from 'isarray';
 import {sync as createDirSync} from 'mkdirp';
 import Plugin from 'broccoli-plugin';
 import walkSync from 'walk-sync';
+import 'babel-polyfill';
 
 export default class Babel extends Plugin {
   constructor(inputNodes, options = {}) {
-    super(isArray(inputNodes) ? inputNodes : [inputNodes], {
+    super(Array.isArray(inputNodes) ? inputNodes : [inputNodes], {
       annotation: options.annotation
     });
 
