@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import {readdir, readFile, writeFile} from 'fs-promise';
 import {transform} from 'babel-core';
 import {dirname} from 'path';
-import mkdirp from 'mkdirp-promise';
+import mkdirp from 'mkdirp-then';
 import Plugin from 'broccoli-plugin';
 
 export default class Babel extends Plugin {
