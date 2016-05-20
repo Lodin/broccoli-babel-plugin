@@ -2,3 +2,5 @@ coverage
 dist
 esdoc
 tmp
+specs/expects
+specs/fixtures
