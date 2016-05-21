@@ -1,9 +1,10 @@
 import 'babel-polyfill';
-import {walk, readFile, writeFile} from 'fs-promise';
+import {readFile, writeFile} from 'fs-promise';
 import {transform} from 'babel-core';
 import path from 'path';
 import mkdirp from 'mkdirp-then';
 import Plugin from 'broccoli-plugin';
+import walk from 'walk-sync';
 
 export default class Babel extends Plugin {
   constructor(inputNodes, options = {}) {
@@ -18,23 +19,21 @@ export default class Babel extends Plugin {
     if (options.persistentOutput) {
       delete options.persistentOutput;
     }
-
     this.options = options;
   }
 
   async build() {
     const [inputPath] = this.inputPaths;
 
-    for (let file of await walk(inputPath)) {
-      if (file.path.slice(-3) !== '.js') {
+    for (let fname of walk(inputPath)) {
+      if (fname.slice(-3) !== '.js') {
         continue;
       }
 
-      const code = await readFile(file.path, 'utf8');
+      const code = await readFile(`${inputPath}/${fname}`, 'utf8');
       const output = transform(code, this.options);
 
-      const relPath = path.relative(inputPath, file.path);
-      const outputFilename = `${this.outputPath}/${relPath}`;
+      const outputFilename = `${this.outputPath}/${fname}`;
 
       await mkdirp(path.dirname(outputFilename));
       await writeFile(outputFilename, output.code);
