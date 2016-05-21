@@ -7,7 +7,18 @@ import mkdirp from 'mkdirp-then';
 import Plugin from 'broccoli-plugin';
 import walk from 'walk-sync';
 
+/**
+ * Broccoli plugin that transpiles es2015 code to es5 using Babel of version 6.
+ */
 export default class Babel extends Plugin {
+
+  /**
+   * Creates a new Babel plugin instance. For more info see
+   * {@link https://github.com/broccolijs/broccoli-plugin}
+   *
+   * @param {Node|Node[]} inputNodes List of input nodes
+   * @param {Object} options Plugin options
+   */
   constructor(inputNodes, options = {}) {
     super(Array.isArray(inputNodes) ? inputNodes : [inputNodes], {
       name: 'Babel',
@@ -27,9 +38,21 @@ export default class Babel extends Plugin {
       );
     }
 
+    /**
+     * Plugin options. Equal to Babel options
+     * {@link https://babeljs.io/docs/usage/options/}
+     *
+     * @type {Object}
+     */
     this.options = options;
   }
 
+  /**
+   * Builds received nodes.
+   *
+   * Walks over all files in the directory, asynchronously reads it, compiles
+   * through babel and writes the compiled data to the output folder.
+   */
   async build() {
     const [inputPath] = this.inputPaths;
 
