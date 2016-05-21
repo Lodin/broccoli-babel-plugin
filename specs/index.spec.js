@@ -3,6 +3,7 @@ import {readFile, readFileSync} from 'fs-promise';
 import {join} from 'path';
 import {Builder} from 'broccoli';
 import Babel from '../src';
+import babelrc from './expects/babelrc';
 
 describe('Babel broccoli plugin', () => {
   it('should transpile es6 files to es5', () => {
@@ -70,5 +71,10 @@ describe('Babel broccoli plugin', () => {
     });
 
     expect(babel.options.persistentOutput).to.be.undefined;
+  });
+  
+  it('should read `.babelrc` file if no options provided', () => {
+    const babel = new Babel(join(__dirname, 'fixtures'));
+    expect(babel.options).to.deep.equal(babelrc);
   });
 });

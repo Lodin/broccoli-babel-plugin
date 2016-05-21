@@ -1,5 +1,6 @@
 import 'babel-polyfill';
 import {readFile, writeFile} from 'fs-promise';
+import {readFileSync} from 'fs';
 import {transform} from 'babel-core';
 import path from 'path';
 import mkdirp from 'mkdirp-then';
@@ -19,6 +20,13 @@ export default class Babel extends Plugin {
     if (options.persistentOutput) {
       delete options.persistentOutput;
     }
+
+    if (Object.getOwnPropertyNames(options).length === 0) {
+      options = JSON.parse(
+          readFileSync(path.join(process.env.PWD, '.babelrc'), 'utf8')
+      );
+    }
+
     this.options = options;
   }
 
