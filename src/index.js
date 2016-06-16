@@ -22,19 +22,16 @@ export default class Babel extends Plugin {
   constructor(inputNodes, options = {}) {
     super(Array.isArray(inputNodes) ? inputNodes : [inputNodes], {
       name: 'Babel',
-      annotation: 'ES6 to ES5 transpilation plugin for Broccoli',
       persistentOutput: options.persistentOutput ?
           options.persistentOutput :
           false
     });
 
-    if (options.persistentOutput) {
-      delete options.persistentOutput;
-    }
+    delete options.persistentOutput;
 
     if (Object.getOwnPropertyNames(options).length === 0) {
       options = JSON.parse(
-          readFileSync(path.join(process.env.PWD, '.babelrc'), 'utf8')
+          readFileSync(path.join(process.cwd(), '.babelrc'), 'utf8')
       );
     }
 

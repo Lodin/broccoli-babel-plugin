@@ -6,7 +6,7 @@ import Babel from '../src';
 import babelrc from './expects/babelrc';
 
 describe('Babel broccoli plugin', () => {
-  it('should transpile es6 files to es5', () => {
+  it('should transpile es6 files to es5', done => {
     const nodes = new Babel(join(__dirname, 'fixtures'), {
       presets: ['es2015', 'stage-0']
     });
@@ -18,10 +18,11 @@ describe('Babel broccoli plugin', () => {
       const expectation = await readFile(expectsPath, 'utf8');
 
       expect(fixture).to.equal(expectation);
+      done();
     });
   });
 
-  it('should work with inner folders', () => {
+  it('should work with inner folders', done => {
     const nodes = new Babel(join(__dirname, 'fixtures'), {
       presets: ['es2015', 'stage-0']
     });
@@ -43,10 +44,11 @@ describe('Babel broccoli plugin', () => {
 
       expect(fxLvl1).to.equal(exLvl1);
       expect(fxLvl2).to.equal(exLvl2);
+      done();
     });
   });
 
-  it('should not transpile file with extensions differs from `.js`', () => {
+  it('should not transpile file with extensions differs from `.js`', done => {
     const nodes = new Babel(join(__dirname, 'fixtures'), {
       presets: ['es2015', 'stage-0']
     });
@@ -55,6 +57,7 @@ describe('Babel broccoli plugin', () => {
       expect(() => {
         readFileSync(join(nodes.outputPath, 'basic-not-compile.html'), 'utf8');
       }).to.throw(Error);
+      done();
     });
   });
 
