@@ -1,8 +1,7 @@
-import 'babel-polyfill';
+import path from 'path';
 import {readFile, writeFile} from 'fs-promise';
 import {readFileSync} from 'fs';
 import {transform} from 'babel-core';
-import path from 'path';
 import mkdirp from 'mkdirp-then';
 import Plugin from 'broccoli-plugin';
 import walk from 'walk-sync';
@@ -22,11 +21,12 @@ export default class Babel extends Plugin {
   constructor(inputNodes, options = {}) {
     super(Array.isArray(inputNodes) ? inputNodes : [inputNodes], {
       name: 'Babel',
+      annotation: options.annotation,
       persistentOutput: options.persistentOutput ?
           options.persistentOutput :
           false
     });
-
+    delete options.annotation;
     delete options.persistentOutput;
 
     if (Object.getOwnPropertyNames(options).length === 0) {

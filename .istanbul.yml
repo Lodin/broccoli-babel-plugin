@@ -5,3 +5,5 @@ reporting:
   - html
   report-config:
     html: { subdir: . }
+instrumentation:
+  root: src
